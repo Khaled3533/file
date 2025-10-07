@@ -71,7 +71,7 @@ main { flex-grow:1; }
 .owner-actions { position:absolute; top:12px; left:12px; display:flex; gap:8px; z-index:10; }
 .modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(26, 9, 36, 0.9); z-index:9999; padding:20px; }
 .modal.active {display:flex;}
-./* تحديث الـ modal ليصبح بطاقة أنيقة */
+/* تحديث الـ modal ليصبح بطاقة أنيقة */
 .modal .panel {
   background: linear-gradient(135deg,#3e3663 60%,#241f3d 100%);
   border-radius: 25px;
@@ -91,8 +91,8 @@ main { flex-grow:1; }
 }
 .close {
   position: absolute;
-  top: -12px;       /* رفعها فوق العنوان */
-  right: 12px;      /* وضعها على يمين الـ panel */
+  top: -12px;
+  right: 12px;
   font-size: 22px;
   cursor: pointer;
   color: var(--muted);
@@ -167,13 +167,14 @@ footer { margin-top:40px; padding:20px; background:#2b2147; border-radius:20px; 
   </header>
 
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔎 Search for files directly" oninput="filterSearch()"/>
+    <input type="text" id="searchInput" placeholder="🔎 Search for files directly" oninput="filterSearch()" />
   </div>
 
   <div id="categories" class="tabs" role="tablist"></div>
   <main><div id="grid" class="grid"></div></main>
   <footer>
-    <div>Design and programming rights to the Random Hackers channel ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+    <div>
+      Design and programming rights to the Random Hackers channel ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
     </div>
     <div class="footer-btns">
       <a href="https://t.me/Rand2m" target="_blank">👾 Channel</a>
@@ -190,51 +191,53 @@ footer { margin-top:40px; padding:20px; background:#2b2147; border-radius:20px; 
 </div>
 
 <script>
-let isOwner=false;
-const ownerPassword="@n2511244";
-let prevStates=[];
-let items=JSON.parse(localStorage.getItem('items')||'[]');
-if(!items.length){
-  items=[
-  {id:1, title:"تطبيق مشاهدتي", description:"تطبيق لمراقبة المشاهدات", category:"التطبيقات", image:"https://picsum.photos/id/45/400/300", link:"https://t.me/your_channel/22", size:"14MB", published:false},
-  {id:2, title:"كود بوت فاخر", description:"كود بوت تلغرام بخدمات جديدة", category:"الأكواد", image:"https://picsum.photos/id/38/400/300", link:"https://t.me/your_channel/11", size:"8KB", published:false},
-  {id:3, title:"دورة PDF", description:"ملف pdf يشمل دروس تعلم البرمجة", category:"الملفات", image:"https://picsum.photos/id/88/400/300", link:"https://t.me/your_channel/31", size:"3MB", published:false},
-  {id:4, title:"سورس بوت تواصل", description:"سورس بلغة بايثون مطور خصيصاً للبوتات", category:"السورسات", image:"https://picsum.photos/id/12/400/300", link:"https://t.me/your_channel/44", size:"440KB", published:false},
-  {id:5, title:"أدوات مساعدة", description:"مجموعة أدوات متنوعة", category:"الأدوات", image:"https://picsum.photos/id/65/400/300", link:"#", size:"2MB", published:false},
-  {id:6, title:"بوت تليجرام", description:"بوتات جاهزة للاستخدام", category:"البوتات", image:"https://picsum.photos/id/66/400/300", link:"#", size:"500KB", published:false}
-];
-localStorage.setItem('items', JSON.stringify(items));
-}
-function saveItems(){ localStorage.setItem('items', JSON.stringify(items)); }
+let isOwner = false;
+const ownerPassword = "@n2511244";
+let prevStates = [];
+let items = JSON.parse(localStorage.getItem('items') || '[]');
 
-
-function buildCategories(){
-  const cats=["Apks","Codes","Files","Sources","Tools","Bots","Random"];
-  document.getElementById('categories').innerHTML = cats.map(c=>`<div class="tab${c==='Random'?' random':''}" onclick="showCategory('${c}')">${c}</div>`).join('');
+if (!items.length) {
+  items = [
+    { id: 1, title: "تطبيق مشاهدتي", description: "تطبيق لمراقبة المشاهدات", category: "التطبيقات", image: "https://picsum.photos/id/45/400/300", link: "https://t.me/your_channel/22", size: "14MB", published: false },
+    { id: 2, title: "كود بوت فاخر", description: "كود بوت تلغرام بخدمات جديدة", category: "الأكواد", image: "https://picsum.photos/id/38/400/300", link: "https://t.me/your_channel/11", size: "8KB", published: false },
+    { id: 3, title: "دورة PDF", description: "ملف pdf يشمل دروس تعلم البرمجة", category: "الملفات", image: "https://picsum.photos/id/88/400/300", link: "https://t.me/your_channel/31", size: "3MB", published: false },
+    { id: 4, title: "سورس بوت تواصل", description: "سورس بلغة بايثون مطور خصيصاً للبوتات", category: "السورسات", image: "https://picsum.photos/id/12/400/300", link: "https://t.me/your_channel/44", size: "440KB", published: false },
+    { id: 5, title: "أدوات مساعدة", description: "مجموعة أدوات متنوعة", category: "الأدوات", image: "https://picsum.photos/id/65/400/300", link: "#", size: "2MB", published: false },
+    { id: 6, title: "بوت تليجرام", description: "بوتات جاهزة للاستخدام", category: "البوتات", image: "https://picsum.photos/id/66/400/300", link: "#", size: "500KB", published: false }
+  ];
+  localStorage.setItem('items', JSON.stringify(items));
 }
 
-function showCategory(cat){
-  prevStates.push({mode:"grid",cat});
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  [...document.querySelectorAll('.tab')].find(t=>t.textContent===cat)?.classList.add('active');
+function saveItems() {
+  localStorage.setItem('items', JSON.stringify(items));
+}
+
+function buildCategories() {
+  const cats = ["Apks", "Codes", "Files", "Sources", "Tools", "Bots", "Random"];
+  document.getElementById('categories').innerHTML = cats.map(c => `<div class="tab${c === 'Random' ? ' random' : ''}" onclick="showCategory('${c}')">${c}</div>`).join('');
+}
+
+function showCategory(cat) {
+  prevStates.push({ mode: "grid", cat });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  [...document.querySelectorAll('.tab')].find(t => t.textContent === cat)?.classList.add('active');
 
   let list = items.filter(i => i.category === cat && i.published);
- // الآن كل الأقسام تتصرف بنفس الطريقة
 
-  const grid=document.getElementById('grid');
-  if(list.length===0){
-    grid.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:16px;">There are no files in this section ❎</div>';
+  const grid = document.getElementById('grid');
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);font-size:16px;">There are no files in this section ❎</div>';
   } else {
-    grid.innerHTML = list.map(it=>`
+    grid.innerHTML = list.map(it => `
       <div class="card">
-        <div class="thumb" style="background-image:url('${it.image||'https://via.placeholder.com/400x300?text=No image'}')"></div>
-        ${isOwner?`<div class="owner-actions">
+        <div class="thumb" style="background-image:url('${it.image || 'https://via.placeholder.com/400x300?text=No image'}')"></div>
+        ${isOwner ? `<div class="owner-actions">
           <button class="btn owner btn-small" onclick="openAddEditModal(${it.id})">Edit</button>
           <button class="btn danger btn-small" onclick="deleteFile(${it.id})">Delete</button>
-        </div>`:''}
+        </div>` : ''}
         <div class="meta"><div>${it.title}</div><div>${it.category}</div></div>
         <div class="desc">${it.description}</div>
-        <div class="file-info">Size: ${it.size||'undefined'}</div>
+        <div class="file-info">Size: ${it.size || 'undefined'}</div>
         <div class="actions">
           <a class="btn" href="${it.link}" target="_blank">View / Download</a>
           <button class="btn" onclick="openDetailsModal(${it.id})">Details</button>
@@ -242,27 +245,27 @@ function showCategory(cat){
       </div>`).join('');
   }
 
-  document.getElementById('btnAddFile').style.display=(isOwner)?'inline-block':'none';
-  document.getElementById('searchInput').value="";
+  document.getElementById('btnAddFile').style.display = (isOwner) ? 'inline-block' : 'none';
+  document.getElementById('searchInput').value = "";
 }
 
-function filterSearch(){
-  const q=document.getElementById('searchInput').value.toLowerCase();
-  prevStates.push({mode:"search",query:q});
-  const list=items.filter(i => (i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q)) && i.published);
-  const grid=document.getElementById('grid');
-  if(list.length===0) grid.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:16px;">✖️No results found..</div>';
-  else{
-    grid.innerHTML = list.map(it=>`
+function filterSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  prevStates.push({ mode: "search", query: q });
+  const list = items.filter(i => (i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q)) && i.published);
+  const grid = document.getElementById('grid');
+  if (list.length === 0) grid.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);font-size:16px;">✖️No results found..</div>';
+  else {
+    grid.innerHTML = list.map(it => `
       <div class="card">
-        <div class="thumb" style="background-image:url('${it.image||'https://via.placeholder.com/400x300?text=No image'}')"></div>
-        ${isOwner?`<div class="owner-actions">
+        <div class="thumb" style="background-image:url('${it.image || 'https://via.placeholder.com/400x300?text=No image'}')"></div>
+        ${isOwner ? `<div class="owner-actions">
           <button class="btn owner btn-small" onclick="openAddEditModal(${it.id})">Edit</button>
           <button class="btn danger btn-small" onclick="deleteFile(${it.id})">Delete</button>
-        </div>`:''}
+        </div>` : ''}
         <div class="meta"><div>${it.title}</div><div>${it.category}</div></div>
         <div class="desc">${it.description}</div>
-        <div class="file-info">Size: ${it.size||'undefined'}</div>
+        <div class="file-info">Size: ${it.size || 'undefined'}</div>
         <div class="actions">
           <a class="btn" href="${it.link}" target="_blank">View / Download</a>
           <button class="btn" onclick="openDetailsModal(${it.id})">Details</button>
@@ -271,20 +274,22 @@ function filterSearch(){
   }
 }
 
-function showModal(html){
-  document.getElementById('modalBody').innerHTML=html;
+function showModal(html) {
+  document.getElementById('modalBody').innerHTML = html;
   document.getElementById('modal').classList.add('active');
 }
 
-function closeModal(){ document.getElementById('modal').classList.remove('active'); document.getElementById('modalBody').innerHTML=''; }
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+  document.getElementById('modalBody').innerHTML = '';
+}
 
-document.getElementById('modalClose').onclick=()=>{ closeModal(); if(prevStates.length){ handleBack(); } };
+document.getElementById('modalClose').onclick = () => { closeModal(); if (prevStates.length) { handleBack(); } };
 
-function openDetailsModal(id){
+function openDetailsModal(id) {
   const item = items.find(i => i.id === id);
   if (!item) return;
 
-  // حفظ الحالة السابقة لتفعيل زر العودة
   prevStates.push({ mode: "details", id });
 
   showModal(`
@@ -300,18 +305,16 @@ function openDetailsModal(id){
     </div>
   `);
 
-  // 👇 تعديل يضمن أن زر ✖️ سيعيد المستخدم بشكل صحيح
   document.getElementById('modalClose').onclick = () => {
     closeModal();
     handleBack();
   };
 }
 
-function openDetailsModal(id){
+function openDetailsModal(id) {
   const item = items.find(i => i.id === id);
   if (!item) return;
 
-  // نحفظ فقط الحالة مرة واحدة
   if (!prevStates.some(s => s.mode === "details" && s.id === id)) {
     prevStates.push({ mode: "details", id });
   }
@@ -329,11 +332,10 @@ function openDetailsModal(id){
     </div>
   `);
 
-  // زر ✖️ فقط يغلق النافذة بدون نداء handleBack
   document.getElementById('modalClose').onclick = closeModal;
 }
 
-function submitAddEdit(id){
+function submitAddEdit(id) {
   const form = document.getElementById("formAddEdit");
   const data = {
     title: form.title.value,
@@ -343,14 +345,17 @@ function submitAddEdit(id){
     image: form.image.value,
     size: form.size.value
   };
-  if(id){
+  if (id) {
     const idx = items.findIndex(i => i.id === id);
     items[idx] = { ...items[idx], ...data };
   }
-  else{
-    items.push({ id: Date.now(), ...data, published: true }); // تم إضافة published:true هنا
+  else {
+    items.push({ id: Date.now(), ...data, published: true });
   }
-  saveItems(); buildCategories(); showCategory(data.category); closeModal();
+  saveItems();
+  buildCategories();
+  showCategory(data.category);
+  closeModal();
   return false;
 }
 
@@ -371,7 +376,6 @@ function deleteFile(id) {
     </div>
   `);
 
-  // حركة الظهور
   const modal = document.querySelector(".panel");
   modal.style.transform = "scale(0.8)";
   modal.style.opacity = "0";
@@ -384,7 +388,6 @@ function deleteFile(id) {
 
 function confirmDelete(id) {
   const modal = document.querySelector(".panel");
-  // حركة الإغلاق
   modal.style.transition = "all 0.2s ease";
   modal.style.transform = "scale(0.8)";
   modal.style.opacity = "0";
@@ -398,9 +401,9 @@ function confirmDelete(id) {
   }, 200);
 }
 
-function openAddEditModal(id){
-  const item = items.find(i => i.id === id) || {title:'',category:'Apks',description:'',link:'',image:'',size:''};
-  prevStates.push({mode:"addEdit", id});
+function openAddEditModal(id) {
+  const item = items.find(i => i.id === id) || { title: '', category: 'Apks', description: '', link: '', image: '', size: '' };
+  prevStates.push({ mode: "addEdit", id });
 
   showModal(`
     <h3>${id ? "Edit" : "Post a new file"}</h3>
@@ -410,13 +413,13 @@ function openAddEditModal(id){
 
       <label>📦 Department</label>
       <select name="category">
-        <option ${item.category==='Apks'?'selected':''}>Apks</option>
-        <option ${item.category==='Codes'?'selected':''}>Codes</option>
-        <option ${item.category==='Files'?'selected':''}>Files</option>
-        <option ${item.category==='Sources'?'selected':''}>Sources</option>
-        <option ${item.category==='Tools'?'selected':''}>Tools</option>
-        <option ${item.category==='Bots'?'selected':''}>Bots</option>
-        <option ${item.category==='Random'?'selected':''}>Random</option>
+        <option ${item.category === 'Apks' ? 'selected' : ''}>Apks</option>
+        <option ${item.category === 'Codes' ? 'selected' : ''}>Codes</option>
+        <option ${item.category === 'Files' ? 'selected' : ''}>Files</option>
+        <option ${item.category === 'Sources' ? 'selected' : ''}>Sources</option>
+        <option ${item.category === 'Tools' ? 'selected' : ''}>Tools</option>
+        <option ${item.category === 'Bots' ? 'selected' : ''}>Bots</option>
+        <option ${item.category === 'Random' ? 'selected' : ''}>Random</option>
       </select>
 
       <label>📜 Description</label>
@@ -439,10 +442,10 @@ function openAddEditModal(id){
   `);
 }
 
-document.getElementById('btnAddFile').onclick=()=>openAddEditModal();
+document.getElementById('btnAddFile').onclick = () => openAddEditModal();
 
-document.getElementById('adminBtn').onclick = function() {
-  prevStates.push({mode:"admin"});
+document.getElementById('adminBtn').onclick = function () {
+  prevStates.push({ mode: "admin" });
   showModal(`
     <h3>Administrator/Guest Login</h3>
     <form onsubmit="return loginOwner();">
@@ -461,8 +464,8 @@ function loginOwner() {
   const pass = document.getElementById('ownerPassword').value;
   const field = document.getElementById('ownerPassword');
   const errorDiv = document.getElementById('loginError');
-  
-  if(pass === ownerPassword){
+
+  if (pass === ownerPassword) {
     isOwner = true;
     closeModal();
     buildCategories();
@@ -470,12 +473,12 @@ function loginOwner() {
   } else {
     field.classList.add('input-error');
     setTimeout(() => field.classList.remove('input-error'), 300);
-    errorDiv.innerText = "Incorrect password"; 
+    errorDiv.innerText = "Incorrect password";
   }
   return false;
 }
 
-function showNotification(category){
+function showNotification(category) {
   const percent = getFilesPercentage(category);
   const count = items.filter(i => i.category === category).length;
 
@@ -488,14 +491,14 @@ function showNotification(category){
   `);
 }
 
-function getFilesPercentage(category){
-  const total = items.filter(i => i.published).length; 
-  if(total === 0) return 0;
-  const count = items.filter(i => i.category === category && i.published).length; 
-  return Math.round((count / total) * 100); 
+function getFilesPercentage(category) {
+  const total = items.filter(i => i.published).length;
+  if (total === 0) return 0;
+  const count = items.filter(i => i.category === category && i.published).length;
+  return Math.round((count / total) * 100);
 }
 
-function loginVisitor(){
+function loginVisitor() {
   isOwner = false;
   const totalFiles = items.filter(i => i.published).length;
   showModal(`
@@ -508,14 +511,14 @@ function loginVisitor(){
   `);
 }
 
-function handleBack(){
-  if(prevStates.length===0){ return; }
-  const prev=prevStates.pop();
-  switch(prev.mode){
+function handleBack() {
+  if (prevStates.length === 0) { return; }
+  const prev = prevStates.pop();
+  switch (prev.mode) {
     case "grid": showCategory(prev.cat); break;
     case "details": openDetailsModal(prev.id); break;
     case "addEdit": closeModal(); break;
-    case "search": document.getElementById('searchInput').value=""; filterSearch(); break;
+    case "search": document.getElementById('searchInput').value = ""; filterSearch(); break;
     case "admin": closeModal(); break;
     default: showCategory('Apks');
   }
