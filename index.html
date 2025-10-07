@@ -196,12 +196,12 @@ let prevStates=[];
 let items=JSON.parse(localStorage.getItem('items')||'[]');
 if(!items.length){
   items=[
-  {id:1, title:"تطبيق مشاهدتي", description:"تطبيق لمراقبة المشاهدات", category:"التطبيقات", image:"https://picsum.photos/id/45/400/300", link:"https://t.me/your_channel/22", size:"14MB", published:true},
-  {id:2, title:"كود بوت فاخر", description:"كود بوت تلغرام بخدمات جديدة", category:"الأكواد", image:"https://picsum.photos/id/38/400/300", link:"https://t.me/your_channel/11", size:"8KB", published:true},
-  {id:3, title:"دورة PDF", description:"ملف pdf يشمل دروس تعلم البرمجة", category:"الملفات", image:"https://picsum.photos/id/88/400/300", link:"https://t.me/your_channel/31", size:"3MB", published:true},
-  {id:4, title:"سورس بوت تواصل", description:"سورس بلغة بايثون مطور خصيصاً للبوتات", category:"السورسات", image:"https://picsum.photos/id/12/400/300", link:"https://t.me/your_channel/44", size:"440KB", published:true},
-  {id:5, title:"أدوات مساعدة", description:"مجموعة أدوات متنوعة", category:"الأدوات", image:"https://picsum.photos/id/65/400/300", link:"#", size:"2MB", published:true},
-  {id:6, title:"بوت تليجرام", description:"بوتات جاهزة للاستخدام", category:"البوتات", image:"https://picsum.photos/id/66/400/300", link:"#", size:"500KB", published:true}
+  {id:1, title:"تطبيق مشاهدتي", description:"تطبيق لمراقبة المشاهدات", category:"التطبيقات", image:"https://picsum.photos/id/45/400/300", link:"https://t.me/your_channel/22", size:"14MB", published:false},
+  {id:2, title:"كود بوت فاخر", description:"كود بوت تلغرام بخدمات جديدة", category:"الأكواد", image:"https://picsum.photos/id/38/400/300", link:"https://t.me/your_channel/11", size:"8KB", published:false},
+  {id:3, title:"دورة PDF", description:"ملف pdf يشمل دروس تعلم البرمجة", category:"الملفات", image:"https://picsum.photos/id/88/400/300", link:"https://t.me/your_channel/31", size:"3MB", published:false},
+  {id:4, title:"سورس بوت تواصل", description:"سورس بلغة بايثون مطور خصيصاً للبوتات", category:"السورسات", image:"https://picsum.photos/id/12/400/300", link:"https://t.me/your_channel/44", size:"440KB", published:false},
+  {id:5, title:"أدوات مساعدة", description:"مجموعة أدوات متنوعة", category:"الأدوات", image:"https://picsum.photos/id/65/400/300", link:"#", size:"2MB", published:false},
+  {id:6, title:"بوت تليجرام", description:"بوتات جاهزة للاستخدام", category:"البوتات", image:"https://picsum.photos/id/66/400/300", link:"#", size:"500KB", published:false}
 ];
 localStorage.setItem('items', JSON.stringify(items));
 }
